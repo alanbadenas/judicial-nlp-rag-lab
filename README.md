@@ -1,8 +1,10 @@
-# Judicial NLP & RAG Lab
+﻿# Judicial NLP & RAG Lab
+
+[![Python CI](https://github.com/alanbadenas/judicial-nlp-rag-lab/actions/workflows/python-ci.yml/badge.svg)](https://github.com/alanbadenas/judicial-nlp-rag-lab/actions/workflows/python-ci.yml)
 
 Academic Master's coursework project exploring **NLP, embeddings, clustering/topic modeling, anonymization, and semantic retrieval** over legal/technical text.
 
-> **Portfolio classification:** academic / research prototype — not commercial experience.
+> **Portfolio classification:** academic / research prototype â€” not commercial experience.
 >
 > **Public-data policy:** this repository contains **synthetic examples only**. Real case records, identifiers, API keys, embeddings, models, indexes, notebook outputs, and any derived artifacts from working datasets are intentionally excluded.
 
@@ -74,9 +76,14 @@ The public version intentionally starts with a deterministic standard-library re
 
 The original coursework investigated data-science techniques applied to legal/technical documents relevant to engineering analysis. The public portfolio version was rebuilt from a clean Git history so that documents and derived data from the academic working environment are not recoverable from repository history.
 
+## Automated checks
+
+GitHub Actions performs lightweight Python syntax compilation and privacy regression tests on every push and pull request. The CI intentionally avoids installing the full ML/NLP stack so that repository health checks remain fast and deterministic.
+
 ## Current limitations
 
 - anonymization is a research safeguard, not a production privacy guarantee;
 - model downloads make the full stack relatively heavy;
 - the Streamlit and clustering paths remain exploratory rather than production services;
 - no real legal dataset is distributed with this repository.
+

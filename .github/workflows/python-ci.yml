@@ -1,0 +1,35 @@
+﻿name: Python CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install lightweight test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest
+
+      - name: Compile Python sources
+        run: |
+          python -m compileall -q src tests rag_demo.py streamlit_rag_app.py visualize_embeddings.py
+
+      - name: Run privacy regression tests
+        run: pytest -q tests/test_privacy.py
