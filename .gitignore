@@ -1,0 +1,38 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Private or source documents: never commit real case material
+/data/raw/
+/data/private/
+/data/anon/
+*.pdf
+*.zip
+
+# Derived datasets / models / indexes
+final_dataset.json
+final_embeddings*.npy
+embeddings_*.npy
+embeddings_*.csv
+processed_files_log.json
+exports/
+models/
+index/
+*.faiss
+*.joblib
+*.pkl
+
+# Notebooks and editor output
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
