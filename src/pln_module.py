@@ -60,7 +60,10 @@ def run_bertopic(
     Retorna o get_topic_info como dict.
     """
     from collections import Counter
-    from utils import simple_preprocess
+    try:
+        from .utils import simple_preprocess
+    except ImportError:
+        from utils import simple_preprocess
 
     docs = [d or "" for d in documents]
     X = np.asarray(embeddings)

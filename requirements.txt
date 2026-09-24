@@ -1,0 +1,29 @@
+# Core data / ML
+numpy
+pandas
+scikit-learn
+joblib
+
+# NLP / embeddings / clustering
+sentence-transformers
+transformers
+torch
+bertopic
+umap-learn
+hdbscan
+nltk
+
+# Retrieval / visualization
+faiss-cpu
+matplotlib
+plotly
+streamlit
+
+# Document extraction / optional LLM path
+pypdf
+pytesseract
+python-dotenv
+google-genai
+
+# Development
+pytest

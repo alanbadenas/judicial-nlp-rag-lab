@@ -91,7 +91,7 @@ def build_faiss_index(data_dir: str, index_dir: str, model_name: str = 'paraphra
             embeddings.append(embed)
             metadata.append({
                 'doc': p.name,
-                'doc_path': str(p.resolve()),
+                'doc_path': str(p.relative_to(data_path)),
                 'start_word': int(start),
                 'end_word': int(end),
                 'text': chunk

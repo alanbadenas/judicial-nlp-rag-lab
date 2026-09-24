@@ -1,0 +1,1 @@
+Synthetic example. A fictional industrial controller intermittently loses communication with a remote sensor after electromagnetic interference events. The technical question is whether cabling, grounding, shielding, or device failure better explains the observed behavior.

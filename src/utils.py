@@ -4,7 +4,12 @@ import re
 from pypdf import PdfReader
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from anonymization_module import get_ner_pipeline, anonymize_text
+try:
+    from .anonymization_module import get_ner_pipeline, anonymize_text
+    from .privacy import redact_deterministic
+except ImportError:  # script execution fallback
+    from anonymization_module import get_ner_pipeline, anonymize_text
+    from privacy import redact_deterministic
 import nltk
 import json
 from pathlib import Path
@@ -55,13 +60,12 @@ def extract_text_from_pdf(pdf_path: str) -> str:
     return text
 
 def anonymize_regex(text: str) -> str:
-    """Anonimiza padrões comuns via RegEx (CPF, N° Processo, Datas)."""
-    # (Copie a função anonymize_regex da Célula 2)
-    text = re.sub(r'\d{3}\.\d{3}\.\d{3}-\d{2}', '[ANON_CPF]', text)
-    text = re.sub(r'\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}', '[ANON_NUM_PROCESSO]', text)
-    text = re.sub(r'\d{2}/\d{2}/\d{4}', '[ANON_DATA]', text)
-    text = re.sub(r'([A-Z][a-z]+)\s+([A-Z][a-z]+)', r'[ANON_NOME]', text) 
-    return text
+    """Deterministic redaction of structured identifiers.
+
+    This first pass deliberately runs without external services. Contextual
+    NER can be applied afterwards by ``run_anonymization_pipeline``.
+    """
+    return redact_deterministic(text)
 
 # Caminho para o arquivo que registrará os PDFs processados
 PROCESSED_LOG_FILE = Path("./processed_files_log.json")
@@ -120,11 +124,10 @@ def run_anonymization_pipeline(text: str) -> str:
     # 1. LENERBR (Reconhecimento de Entidades Nomeadas Jurídicas)
     ner_pipe = get_ner_pipeline()
     print("  -> Aplicando LENERBR para Anonimização Contextual...")
-    text = anonymize_text(text, ner_pipe)
-    
-    # 2. RegEx (Padrões fixos que o modelo pode perder)
-    print("  -> Aplicando RegEx para Padrões Numéricos...")
+    # Structured identifiers are removed before model-based NER so that
+    # sensitive tokens are never dependent on model recall.
     text = anonymize_regex(text)
+    text = anonymize_text(text, ner_pipe)
     
     return text
 

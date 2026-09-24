@@ -1,0 +1,1 @@
+Synthetic example. A fictional consumer disputes an energy-meter anomaly. The analysis considers measurement integrity, installation conditions, inspection records, and alternative technical causes. This text was created solely for a public software demonstration.
